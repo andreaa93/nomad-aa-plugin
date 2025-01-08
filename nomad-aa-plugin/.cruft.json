@@ -1,0 +1,28 @@
+{
+  "template": "https://github.com/FAIRmat-NFDI/cookiecutter-nomad-plugin",
+  "commit": "5f38479d519664f77a5ea3b7790efb31253b7cc9",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "full_name": "Andrea Albino",
+      "email": "andrea.albino@physik.hu-berlin.de",
+      "github_username": "aalbino2",
+      "plugin_name": "nomad-aa-plugin",
+      "module_name": "nomad_aa_plugin",
+      "short_description": "small demo plugin",
+      "version": "0.1.0",
+      "license": "MIT",
+      "include_schema_package": true,
+      "include_normalizer": false,
+      "include_parser": true,
+      "include_app": true,
+      "include_example_uploads": false,
+      "_copy_without_render": [
+        "*.html"
+      ],
+      "_template": "https://github.com/FAIRmat-NFDI/cookiecutter-nomad-plugin",
+      "_commit": "5f38479d519664f77a5ea3b7790efb31253b7cc9"
+    }
+  },
+  "directory": null
+}
