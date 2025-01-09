@@ -14,19 +14,47 @@ from nomad.config import config
 from nomad.datamodel.metainfo.workflow import Workflow
 from nomad.parsing.parser import MatchingParser
 
-configuration = config.get_plugin_entry_point(
-    'nomad_aa_plugin.parsers:parser_entry_point'
+
+from nomad.datamodel.datamodel import EntryArchive
+from nomad.parsing import MatchingParser
+
+
+from pdi_nomad_plugin.utils import (
+    create_archive,
 )
 
+from nomad_aa_plugin.schema_packages.schema_package import MyClassTwo, MyClassOne
 
-class NewParser(MatchingParser):
+class MyParser(MatchingParser):
     def parse(
         self,
-        mainfile: str,
-        archive: 'EntryArchive',
-        logger: 'BoundLogger',
-        child_archives: dict[str, 'EntryArchive'] = None,
+        mainfile: str, 
+        archive: EntryArchive,
+        logger,
     ) -> None:
-        logger.info('NewParser.parse', parameter=configuration.parameter)
+        
+        my_name = "And"
+        child_archive = EntryArchive()
+        filetype = 'yaml'
 
-        archive.workflow2 = Workflow(name='test')
+        example_filename = f'{my_name}.archive.{filetype}'
+
+        child_archive.data = MyClassTwo()
+        child_archive.data.my_name = f'{my_name}'
+        child_archive.data.my_class_one = []
+
+        child_archive.data.my_class_one.append(MyClassOne())
+
+        child_archive.data.my_class_one[0].my_value = [1, 2, 3, 4, 5]
+        child_archive.data.my_class_one[0].my_time = [1, 2, 3, 4, 5]
+
+
+        create_archive(
+            child_archive.m_to_dict(),
+            archive.m_context,
+            example_filename,
+            filetype,
+            logger,
+        )
+
+        archive.data = MyClassOne()
