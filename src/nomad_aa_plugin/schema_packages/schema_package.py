@@ -51,39 +51,12 @@ class MyClassOne(PlotSection, EntryData):
         },
      )
 
-    my_value = Quantity(
-        type=float,
-        shape=['*'],
+    my_name = Quantity(
+        type=str,
         a_eln=ELNAnnotation(
-            component='NumberEditQuantity',
+            component='StringEditQuantity',
         ),
     )
-
-    my_time = Quantity(
-        type=float,
-        shape=['*'],
-        a_eln=ELNAnnotation(
-            component='NumberEditQuantity',
-        ),
-    )
-
-
-class MyClassOneBis(PlotSection):
-
-    m_def = Section(
-        a_plotly_express={
-            'method': 'line',
-            'x': '#my_value',
-            'y': '#my_time',
-            'label': 'Example Express Plot',
-            'index': 0,
-            'layout': {
-                'title': {'text': 'Example Express Plot'},
-                'xaxis': {'title': {'text': 'x axis'}},
-                'yaxis': {'title': {'text': 'y axis'}},
-            },
-        },
-     )
 
     my_value = Quantity(
         type=float,
@@ -146,7 +119,7 @@ class MyClassTwo(EntryData, ArchiveSection):
     )
 
     my_class_one = SubSection(
-        section_def=MyClassOneBis,
+        section_def=MyClassOne,
         repeats=True,
     )
 
@@ -312,6 +285,31 @@ class MyClassFour(PlotSection, EntryData):
             showlegend=True,
         )
         self.figures = [PlotlyFigure(label='my figure 1', figure=fig.to_plotly_json())]
+
+
+class MyClassFive(EntryData, ArchiveSection):
+    """
+    An example class
+    """
+
+    name = Quantity(
+        type=str,
+        description="""
+        Sample name.
+        """,
+        a_eln=ELNAnnotation(
+            component='StringEditQuantity',
+        ),
+    )
+
+    reference = Quantity(
+        type=MyClassOne,
+        description="A reference to a NOMAD `MyClassOne` entry.",
+        a_eln=ELNAnnotation(
+            component="ReferenceEditQuantity",
+            label="MyClassOne Reference",
+        ),
+    )
 
 
 m_package.__init_metainfo__()
