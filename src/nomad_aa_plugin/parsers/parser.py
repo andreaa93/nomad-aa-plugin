@@ -1,32 +1,28 @@
 from typing import (
     TYPE_CHECKING,
 )
-import pandas as pd 
+
+import pandas as pd
 
 if TYPE_CHECKING:
     from nomad.datamodel.datamodel import (
         EntryArchive,
     )
-    from structlog.stdlib import (
-        BoundLogger,
-    )
-
-from nomad.config import config
-from nomad.datamodel.metainfo.workflow import Workflow
-from nomad.parsing.parser import MatchingParser
-
 
 from nomad.datamodel.datamodel import EntryArchive
 from nomad.parsing import MatchingParser
-
-
+from nomad.parsing.parser import MatchingParser
 from nomad.utils import hash
-
 from pdi_nomad_plugin.utils import (
     create_archive,
 )
 
-from nomad_aa_plugin.schema_packages.schema_package import MyClassTwo, MyClassOne, MyClassFive
+from nomad_aa_plugin.schema_packages.schema_package import (
+    MyClassFive,
+    MyClassOne,
+    MyClassTwo,
+)
+
 
 class MyParserOne(MatchingParser):
     def parse(
@@ -92,10 +88,6 @@ class MyParserThree(MatchingParser):
         
         df_csv = pd.read_csv(mainfile, sep=',') #, decimal=',', engine='python')
 
-        archive.data = MyClassFive()
-        archive.data.name = "My namy name"
-        
-
         filetype = 'yaml'
         main_archive_filename = f'main.archive.{filetype}'
         test_filename = f'test.archive.{filetype}'
@@ -123,8 +115,7 @@ class MyParserThree(MatchingParser):
         entry_id = hash(archive.m_context.upload_id, test_filename)
         upload_id = archive.m_context.upload_id
 
-        main_archive.data.reference = f"/uploads/{upload_id}/archive/{entry_id}#data",
-
+        main_archive.data.reference = f"../uploads/{upload_id}/archive/{entry_id}#data"
 
         create_archive(
             main_archive.m_to_dict(),
@@ -133,3 +124,8 @@ class MyParserThree(MatchingParser):
             filetype,
             logger,
         )
+        
+        archive.data = MyClassFive()
+        archive.data.name = "My namy name"
+        archive.data.reference = f"../uploads/{upload_id}/archive/{entry_id}#data"
+        
