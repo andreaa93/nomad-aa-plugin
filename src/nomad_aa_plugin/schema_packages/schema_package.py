@@ -19,10 +19,11 @@ from nomad.datamodel.metainfo.plot import (
     PlotlyFigure,
     PlotSection,
 )
+from nomad.datamodel.hdf5 import HDF5Reference
 from nomad.datamodel.metainfo.plot import PlotSection
 from nomad.config import config
 from nomad.datamodel.data import Schema
-from nomad.datamodel.metainfo.annotations import ELNAnnotation, ELNComponentEnum
+from nomad.datamodel.metainfo.annotations import (ELNAnnotation, ELNComponentEnum, H5WebAnnotation)
 from nomad.metainfo import Quantity, SchemaPackage
 from nomad.datamodel.data import EntryData
 from nomad.metainfo import (
@@ -74,6 +75,29 @@ class MyClassOne(PlotSection, EntryData):
         ),
     )
 
+class MyClassOneHDF5(EntryData, ArchiveSection):
+    """ 
+    A test class for HDF5 data.
+    """
+
+    m_def = Section(a_h5web=H5WebAnnotation(axes='my_time', signal='my_value'))
+
+    my_name = Quantity(
+        type=str,
+        a_eln=ELNAnnotation(
+            component='StringEditQuantity',
+        ),
+    )
+
+    my_value = Quantity(
+        type=HDF5Reference,
+        shape=[],
+    )
+
+    my_time = Quantity(
+        type=HDF5Reference,
+        shape=[],
+    )
 
 class MyClassTwo(EntryData, ArchiveSection):
     """
@@ -109,6 +133,32 @@ class MyClassTwo(EntryData, ArchiveSection):
             #     y='sources/0/vapor_source/power/value',
             # ),
         ],
+    )
+
+    my_name = Quantity(
+        type=str,
+        a_eln=ELNAnnotation(
+            component='StringEditQuantity',
+        ),
+    )
+
+    my_class_one = SubSection(
+        section_def=MyClassOne,
+        repeats=True,
+    )
+
+
+class MyClassTwoHDF5(EntryData, ArchiveSection):
+    """
+    An example class for hdf5 files
+    """
+
+    m_def = Section(
+        a_h5web=H5WebAnnotation(
+            paths=[
+                'my_class_one/*',
+            ]
+        ),
     )
 
     my_name = Quantity(

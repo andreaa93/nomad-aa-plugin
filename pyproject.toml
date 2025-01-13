@@ -115,6 +115,7 @@ schema_package_entry_point = "nomad_aa_plugin.schema_packages:schema_package_ent
 parser_one_entry_point = "nomad_aa_plugin.parsers:parser_one_entry_point"
 parser_two_entry_point = "nomad_aa_plugin.parsers:parser_two_entry_point"
 parser_three_entry_point = "nomad_aa_plugin.parsers:parser_three_entry_point"
+parser_four_entry_point = "nomad_aa_plugin.parsers:parser_four_entry_point"
 
 app_entry_point = "nomad_aa_plugin.apps:app_entry_point"
 
