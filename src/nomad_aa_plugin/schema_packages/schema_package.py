@@ -169,7 +169,7 @@ class MyClassTwoHDF5(EntryData, ArchiveSection):
     )
 
     my_class_one = SubSection(
-        section_def=MyClassOne,
+        section_def=MyClassOneHDF5,
         repeats=True,
     )
 
