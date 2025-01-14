@@ -10,4 +10,4 @@ def test_parse_file():
     archive = EntryArchive()
     parser.parse('tests/data/test_one.csv', archive, logging.getLogger())
 
-    assert archive.name == 'And'
+    assert archive.data.name == 'test'
