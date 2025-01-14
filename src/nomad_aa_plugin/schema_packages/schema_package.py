@@ -1,35 +1,30 @@
 from typing import (
     TYPE_CHECKING,
 )
+
 import plotly.graph_objects as go
 
 if TYPE_CHECKING:
-    from nomad.datamodel.datamodel import (
-        EntryArchive,
-    )
-    from structlog.stdlib import (
-        BoundLogger,
-    )
+    pass
 
 from nomad.datamodel.data import (
     ArchiveSection,
+    EntryData,
 )
-
+from nomad.datamodel.hdf5 import HDF5Reference
+from nomad.datamodel.metainfo.annotations import (
+    ELNAnnotation,
+    H5WebAnnotation,
+)
 from nomad.datamodel.metainfo.plot import (
     PlotlyFigure,
     PlotSection,
 )
-from nomad.datamodel.hdf5 import HDF5Reference
-from nomad.datamodel.metainfo.plot import PlotSection
-from nomad.config import config
-from nomad.datamodel.data import Schema
-from nomad.datamodel.metainfo.annotations import (ELNAnnotation, ELNComponentEnum, H5WebAnnotation)
-from nomad.metainfo import Quantity, SchemaPackage
-from nomad.datamodel.data import EntryData
 from nomad.metainfo import (
     Quantity,
-    SubSection,
+    SchemaPackage,
     Section,
+    SubSection,
 )
 
 m_package = SchemaPackage()

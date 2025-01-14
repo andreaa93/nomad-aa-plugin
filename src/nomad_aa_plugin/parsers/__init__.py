@@ -88,7 +88,7 @@ class MyParserFiveEntryPoint(ParserEntryPoint):
     parameter: int = Field(0, description='Custom configuration parameter')
 
     def load(self):
-        from nomad_aa_plugin.parsers.parser import MyParserFive 
+        from nomad_aa_plugin.parsers.parser import MyParserFive
 
         return MyParserFive(**self.dict())
 

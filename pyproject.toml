@@ -28,11 +28,8 @@ license = { file = "LICENSE" }
 dependencies = [
     "nomad-lab>=1.3.0",
     "python-magic-bin; sys_platform == 'win32'",
-    "pdi-nomad-plugin",
+    "pdi-nomad-plugin @ git+https://github.com/PDI-Berlin/pdi-nomad-plugin.git@main",
 ]
-
-[tool.uv.sources]
-pdi-nomad-plugin = { git = "https://github.com/PDI-Berlin/pdi-nomad-plugin.git", branch = "main" }
 
 [project.urls]
 Repository = "https://github.com/aalbino2/nomad-aa-plugin"

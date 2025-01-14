@@ -2,19 +2,18 @@ from typing import (
     TYPE_CHECKING,
 )
 
-import pandas as pd
-
 import h5py
+import pandas as pd
 
 if TYPE_CHECKING:
     from nomad.datamodel.datamodel import (
         EntryArchive,
     )
 
-from nomad.units import ureg
 from nomad.datamodel.datamodel import EntryArchive
 from nomad.parsing import MatchingParser
 from nomad.parsing.parser import MatchingParser
+from nomad.units import ureg
 from nomad.utils import hash
 from pdi_nomad_plugin.utils import (
     create_archive,
