@@ -31,6 +31,9 @@ dependencies = [
     "pdi-nomad-plugin",
 ]
 
+[tool.uv.sources]
+pdi-nomad-plugin = { git = "https://github.com/PDI-Berlin/pdi-nomad-plugin.git", branch = "main" }
+
 [project.urls]
 Repository = "https://github.com/aalbino2/nomad-aa-plugin"
 
