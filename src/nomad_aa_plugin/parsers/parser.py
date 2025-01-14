@@ -36,7 +36,17 @@ class MyParserOne(MatchingParser):
     ) -> None:
         df_csv = pd.read_csv(mainfile, sep=',')  # , decimal=',', engine='python')
 
+        my_name = "And"
+
+        # This "archive" variable is the parse function argument,
+        # it is the archive that will be written to the archive folder
+        # (not in the raw folder like those created with create_archive function in next examples)
+        # This archive will give rise to a non editable entry.
+        # it's type is already EntryArchive, so we only need to define it's data section
         archive.data = MyClassOne()
+
+        # we fill in values depending on the ones available in the schema
+        archive.data.name = my_name
         archive.data.my_value = df_csv['ValueOne']
         archive.data.my_time = df_csv['ValueOne2']
 
@@ -60,7 +70,7 @@ class MyParserTwo(MatchingParser):
         example_filename = f'{my_name}.archive.{filetype}'
 
         child_archive.data = MyClassTwo()
-        child_archive.data.my_name = f'{my_name}'
+        child_archive.data.name = f'{my_name}'
 
         my_class_one_subsec = MyClassOne()
         my_class_one_subsec.my_value = df_csv['ValueTwo']
@@ -104,7 +114,7 @@ class MyParserThree(MatchingParser):
 
         new_archive = EntryArchive()
         new_archive.data = MyClassOne(
-            my_name='stuff to be referenced',
+            name='stuff to be referenced',
             my_value=df_csv['ValueThree'],
             my_time=df_csv['ValueThree2'],
         )
@@ -182,17 +192,21 @@ class MyParserFour(MatchingParser):
                 group.attrs['NX_class'] = 'NXdata'
 
         child_archives['process'].data = MyClassTwoHDF5()
-        child_archives['process'].data.my_name = f'{my_name}'
+        child_archives['process'].data.name = f'{my_name}'
         child_archives['process'].data.my_class_one = []
 
         child_archives['process'].data.my_class_one.append(MyClassOneHDF5())
 
+        contx = archive.m_context.upload_id
+        my_val = f'/uploads/{contx}/raw/{hdf_filename}#/{group_name}/value'
         child_archives['process'].data.my_class_one[
             0
-        ].my_value = f'/uploads/{archive.m_context.upload_id}/raw/{hdf_filename}#/{group_name}/value'
+        ].my_value = my_val
+
+        my_t = f'/uploads/{contx}/raw/{hdf_filename}#/{group_name}/time'
         child_archives['process'].data.my_class_one[
             0
-        ].my_time = f'/uploads/{archive.m_context.upload_id}/raw/{hdf_filename}#/{group_name}/time'
+        ].my_time = my_t
 
         # other code ....
 
@@ -234,7 +248,7 @@ class MyParserFive(MatchingParser):
         example_filename = f'{my_name}.archive.{filetype}'
 
         child_archive.data = MyClassTwo()
-        child_archive.data.my_name = f'{my_name}'
+        child_archive.data.name = f'{my_name}'
 
         my_class_one_subsec = MyClassOne()
         # use .to_numpy() method to avoid the error:

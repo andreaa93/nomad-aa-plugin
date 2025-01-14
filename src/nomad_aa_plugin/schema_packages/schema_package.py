@@ -46,7 +46,7 @@ class MyClassOne(PlotSection, EntryData):
         },
     )
 
-    my_name = Quantity(
+    name = Quantity(
         type=str,
         a_eln=ELNAnnotation(
             component='StringEditQuantity',
@@ -81,7 +81,7 @@ class MyClassOneHDF5(EntryData, ArchiveSection):
 
     m_def = Section(a_h5web=H5WebAnnotation(axes='my_time', signal='my_value'))
 
-    my_name = Quantity(
+    name = Quantity(
         type=str,
         a_eln=ELNAnnotation(
             component='StringEditQuantity',
@@ -136,7 +136,7 @@ class MyClassTwo(EntryData, ArchiveSection):
         ],
     )
 
-    my_name = Quantity(
+    name = Quantity(
         type=str,
         a_eln=ELNAnnotation(
             component='StringEditQuantity',
@@ -162,7 +162,7 @@ class MyClassTwoHDF5(EntryData, ArchiveSection):
         ),
     )
 
-    my_name = Quantity(
+    name = Quantity(
         type=str,
         a_eln=ELNAnnotation(
             component='StringEditQuantity',
