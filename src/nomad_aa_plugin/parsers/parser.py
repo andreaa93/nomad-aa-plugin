@@ -40,7 +40,7 @@ class MyParserOne(MatchingParser):
 
         # This "archive" variable is the parse function argument,
         # it is the archive that will be written to the archive folder
-        # (not in the raw folder like those created with create_archive function in next examples)
+        # (not in the raw folder like those in next examples created by create_archive)
         # This archive will give rise to a non editable entry.
         # it's type is already EntryArchive, so we only need to define it's data section
         archive.data = MyClassOne()
