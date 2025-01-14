@@ -62,16 +62,20 @@ class MyClassOne(PlotSection, EntryData):
     my_value = Quantity(
         type=float,
         shape=['*'],
+        unit = 'K',
         a_eln=ELNAnnotation(
             component='NumberEditQuantity',
+            defaultDisplayUnit='celsius',
         ),
     )
 
     my_time = Quantity(
         type=float,
         shape=['*'],
+        unit = 's',
         a_eln=ELNAnnotation(
             component='NumberEditQuantity',
+            defaultDisplayUnit='minute',
         ),
     )
 

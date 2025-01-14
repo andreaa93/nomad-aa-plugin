@@ -11,6 +11,7 @@ if TYPE_CHECKING:
         EntryArchive,
     )
 
+from nomad.units import ureg
 from nomad.datamodel.datamodel import EntryArchive
 from nomad.parsing import MatchingParser
 from nomad.parsing.parser import MatchingParser
@@ -64,12 +65,14 @@ class MyParserTwo(MatchingParser):
 
         child_archive.data = MyClassTwo()
         child_archive.data.my_name = f'{my_name}'
-        child_archive.data.my_class_one = []
 
-        child_archive.data.my_class_one.append(MyClassOne())
+        my_class_one_subsec = MyClassOne()
+        my_class_one_subsec.my_value = df_csv["ValueTwo"]
+        my_class_one_subsec.my_time = df_csv["ValueTwo2"]
 
-        child_archive.data.my_class_one[0].my_value = df_csv["ValueTwo"]
-        child_archive.data.my_class_one[0].my_time = df_csv["ValueTwo2"]
+        # check which args the function m_add_subsection accepts: packages/nomad-FAIR/nomad/metainfo/metainfo.py
+        # DO NOT use list.append() to add a subsection to a section!
+        child_archive.data.m_add_sub_section(MyClassTwo.my_class_one, my_class_one_subsec)
 
         create_archive(
             child_archive.m_to_dict(),
@@ -202,6 +205,59 @@ class MyParserFour(MatchingParser):
 
         create_archive(
             child_archives['process'].m_to_dict(),
+            archive.m_context,
+            example_filename,
+            filetype,
+            logger,
+        )
+
+        archive.data = MyClassOne()
+
+
+class MyParserFive(MatchingParser):
+    def parse(
+        self,
+        mainfile: str, 
+        archive: EntryArchive,
+        logger,
+    ) -> None:
+        
+        df_csv = pd.read_csv(mainfile, sep=',') #, decimal=',', engine='python')
+
+        archive.data = MyClassOne()
+    
+        child_archive = EntryArchive()
+
+        my_name = "And"
+        filetype = 'yaml'
+
+        example_filename = f'{my_name}.archive.{filetype}'
+
+        child_archive.data = MyClassTwo()
+        child_archive.data.my_name = f'{my_name}'
+
+        my_class_one_subsec = MyClassOne()
+        # use .to_numpy() method to avoid the error: 
+        # Quantity cannot wrap upcast type <class 'pandas.core.series.Series'>
+        my_class_one_subsec.my_value = ureg.Quantity(
+            df_csv["ValueFive"].to_numpy(),
+            ureg('celsius'),
+        )
+        # use .to_numpy() method to avoid the error: 
+        # Quantity cannot wrap upcast type <class 'pandas.core.series.Series'>
+        my_class_one_subsec.my_time =  ureg.Quantity(
+            df_csv["ValueFive2"].to_numpy(),
+            ureg('minute'),
+        )
+
+        # use the syntax my_variable.to('hour').magnitude to convert the units
+
+        # check which args the function m_add_subsection accepts: packages/nomad-FAIR/nomad/metainfo/metainfo.py
+        # DO NOT use list.append() to add a subsection to a section!
+        child_archive.data.m_add_sub_section(MyClassTwo.my_class_one, my_class_one_subsec)
+
+        create_archive(
+            child_archive.m_to_dict(),
             archive.m_context,
             example_filename,
             filetype,
