@@ -15,12 +15,13 @@ parser_one_entry_point = MyParserOneEntryPoint(
     name='MyParserOne',
     description='My parser entry point configuration.',
     mainfile_name_re=r'.+\.csv',
-    mainfile_mime_re="(?:text/plain|text/csv)",  # 'text/plain',  
+    mainfile_mime_re='(?:text/plain|text/csv)',  # 'text/plain',
     mainfile_contents_dict={
         '__has_all_keys': ['ValueOne', 'ValueOne2'],
         '__has_comment': '#',
     },
 )
+
 
 class MyParserTwoEntryPoint(ParserEntryPoint):
     parameter: int = Field(0, description='Custom configuration parameter')
@@ -35,12 +36,13 @@ parser_two_entry_point = MyParserTwoEntryPoint(
     name='MyParserTwo',
     description='My parser entry point configuration.',
     mainfile_name_re=r'.+\.csv',
-    mainfile_mime_re="(?:text/plain|text/csv)",  # 'text/plain',  
+    mainfile_mime_re='(?:text/plain|text/csv)',  # 'text/plain',
     mainfile_contents_dict={
         '__has_all_keys': ['ValueTwo', 'ValueTwo2'],
         '__has_comment': '#',
     },
 )
+
 
 class MyParserThreeEntryPoint(ParserEntryPoint):
     parameter: int = Field(0, description='Custom configuration parameter')
@@ -55,7 +57,7 @@ parser_three_entry_point = MyParserThreeEntryPoint(
     name='MyParserThree',
     description='My parser entry point configuration.',
     mainfile_name_re=r'.+\.csv',
-    mainfile_mime_re="(?:text/plain|text/csv)",  # 'text/plain',  
+    mainfile_mime_re='(?:text/plain|text/csv)',  # 'text/plain',
     mainfile_contents_dict={
         '__has_all_keys': ['ValueThree', 'ValueThree2'],
         '__has_comment': '#',
@@ -76,7 +78,7 @@ parser_four_entry_point = MyParserFourEntryPoint(
     name='MyParserFour',
     description='My parser entry point configuration.',
     mainfile_name_re=r'.+\.csv',
-    mainfile_mime_re="(?:text/plain|text/csv)",  # 'text/plain',  
+    mainfile_mime_re='(?:text/plain|text/csv)',  # 'text/plain',
     mainfile_contents_dict={
         '__has_all_keys': ['ValueFour', 'ValueFour2'],
         '__has_comment': '#',
@@ -97,7 +99,7 @@ parser_five_entry_point = MyParserFiveEntryPoint(
     name='MyParserFive',
     description='My parser entry point configuration.',
     mainfile_name_re=r'.+\.csv',
-    mainfile_mime_re="(?:text/plain|text/csv)",  # 'text/plain',  
+    mainfile_mime_re='(?:text/plain|text/csv)',  # 'text/plain',
     mainfile_contents_dict={
         '__has_all_keys': ['ValueFive', 'ValueFive2'],
         '__has_comment': '#',
