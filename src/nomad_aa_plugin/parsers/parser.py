@@ -65,7 +65,7 @@ class MyParserTwo(MatchingParser):
         child_archive = EntryArchive()
 
         my_name = 'And'
-        filetype = 'yaml'
+        filetype = 'yaml' # "json"
 
         example_filename = f'{my_name}.archive.{filetype}'
 
@@ -93,6 +93,7 @@ class MyParserTwo(MatchingParser):
 
         archive.data = MyClassOne()
 
+#### test  ###
 
 class MyParserThree(MatchingParser):
     def parse(
